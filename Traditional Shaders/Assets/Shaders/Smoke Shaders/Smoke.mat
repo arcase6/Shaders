@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Smoke
+  m_Shader: {fileID: 4800000, guid: 466b929f211d1094abe84f5bd9073b79, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _DiffusionRate: 2
+    - _Minimum: 0.0027
+    - _PixelsX: 1980
+    - _PixelsY: 1080
+    m_Colors:
+    - _DiffusionWeights: {r: 0.13411635, g: 0.31599998, b: 0.36588365, a: 0.184}
+    - _Pixels: {r: 1920, g: 1080, b: 0, a: 0}
+    - _SmokeColor: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 1}
