@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Left Face
-  m_Shader: {fileID: 4800000, guid: 12eac61daad382046ab1b3ea3651229c, type: 3}
+  m_Shader: {fileID: 4800000, guid: 793442bb33549d74f88c6050750263ff, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -70,7 +70,8 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _StencilMask: 3
+    - _StencilIncAmount: 1
+    - _StencilMask: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:

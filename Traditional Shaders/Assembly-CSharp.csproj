@@ -55,7 +55,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\AnimatorParameter.cs" />
      <Compile Include="Assets\CameraComparison.cs" />
+     <Compile Include="Assets\InitAnimatorValues.cs" />
      <Compile Include="Assets\Shaders\Color Mixing\ColorFilter.cs" />
      <Compile Include="Assets\Shaders\Overlay\OverlayImage.cs" />
      <Compile Include="Assets\Shaders\Smoke Shaders\DrawToScreen.cs" />
@@ -63,28 +65,30 @@
      <Compile Include="Assets\Shaders\Smoke Shaders\TextureProcessor.cs" />
      <None Include="Assets\Shaders\Stencil Buffers\StencilObjectStd.shader" />
      <None Include="Assets\Shaders\Color Mixing\ColorMixer.shader" />
+     <None Include="Assets\Shaders\Stencil Buffers\StencilTheshold.shader" />
      <None Include="Assets\Shaders\Overlay\OverlayCamera.shader" />
      <None Include="Assets\ComparisonMerge.shader" />
+     <None Include="Assets\Shaders\Stencil Buffers\StencilIncrementMask.shader" />
      <None Include="Assets\Shaders\Stencil Buffers\StencilMask.shader" />
      <None Include="Assets\Shaders\Smoke Shaders\AddSmoke.shader" />
      <None Include="Assets\Shaders\Smoke Shaders\Smoke.shader" />
  <Reference Include="Unity.Timeline.Editor">
- <HintPath>D:/Unity Files/Shader Projects/Traditional Shaders/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ <HintPath>D:/Unity Files/Shaders/Traditional Shaders/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>D:/Unity Files/Shader Projects/Traditional Shaders/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>D:/Unity Files/Shaders/Traditional Shaders/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
- <HintPath>D:/Unity Files/Shader Projects/Traditional Shaders/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ <HintPath>D:/Unity Files/Shaders/Traditional Shaders/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>D:/Unity Files/Shader Projects/Traditional Shaders/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ <HintPath>D:/Unity Files/Shaders/Traditional Shaders/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>D:/Unity Files/Shader Projects/Traditional Shaders/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>D:/Unity Files/Shaders/Traditional Shaders/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.DataPrivacy">
- <HintPath>D:/Unity Files/Shader Projects/Traditional Shaders/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+ <HintPath>D:/Unity Files/Shaders/Traditional Shaders/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>D:/Unity Files/Hub Installs/2019.1.11f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -270,13 +274,13 @@
  <HintPath>D:/Unity Files/Hub Installs/2019.1.11f1/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.Editor">
- <HintPath>D:/Unity Files/Shader Projects/Traditional Shaders/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+ <HintPath>D:/Unity Files/Shaders/Traditional Shaders/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.StandardEvents">
- <HintPath>D:/Unity Files/Shader Projects/Traditional Shaders/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+ <HintPath>D:/Unity Files/Shaders/Traditional Shaders/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.Tracker">
- <HintPath>D:/Unity Files/Shader Projects/Traditional Shaders/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+ <HintPath>D:/Unity Files/Shaders/Traditional Shaders/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>D:/Unity Files/Hub Installs/2019.1.11f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
