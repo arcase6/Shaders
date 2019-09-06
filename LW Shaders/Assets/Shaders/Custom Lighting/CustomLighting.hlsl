@@ -66,7 +66,7 @@ void AdditionalLights_half(half3 SpecularColor, half Smoothness, half3 WorldPosi
 
     #ifndef SHADERGRAPH_PREVIEW
         Smoothness = exp2(10 * Smoothness + 1);
-        WorldNormal = normalize(WorldView);
+        WorldView = SafeNormalize(WorldView);
 
         //Additional Lights cannot be directional lights
         //Additional lights are the set of non-culled spot and point lights (culling done by distance)
@@ -85,6 +85,56 @@ void AdditionalLights_half(half3 SpecularColor, half Smoothness, half3 WorldPosi
     Specular = specularColor;
 }
 
+half3 LightingDiffuseToon(half3 LightColor, half3 LightDirection, half3 WorldNormal, half ShadowSoftness){
+    half dotProduct = dot(LightDirection, WorldNormal);
+    dotProduct = smoothstep(0,ShadowSoftness,dotProduct);
+    return dotProduct * LightColor; 
+}
+
+void SafeNormalize_half(half3 Direction, out half3 NormalizedDirection){
+    NormalizedDirection =  SafeNormalize(Direction);
+}
+
+half3 LightingSpecToon(half3 lightColor, half3 lightDir, half3 normal, half3 viewDir, half4 specularGloss, half shininess, half SpecularSoftness)
+{
+    half3 halfVec = SafeNormalize(lightDir + viewDir);
+    half NdotH = saturate(dot(normal, halfVec)); //specular intensity
+
+
+	//specular gloss rgb is how specular each channel is all multiplied by a specular component stores in the alpha channel
+    half modifier = pow(NdotH, shininess) * specularGloss.a; //a modifier that sharpens specular highlights and accounts for gloss (gloss seems to basically just be "specularness" of the material)
+
+    half3 specularReflection = specularGloss.rgb * modifier; 
+
+    specularReflection = smoothstep(0.005,SpecularSoftness,specularReflection);
+
+    return lightColor * specularReflection; 
+}
+
+void AdditionalLightsToon_half(half3 SpecularColor, half Smoothness, half3 WorldPosition, half3 WorldNormal, half3 WorldView, half ShadowSoftness, half SpecularSoftness, out half3 Diffuse, out half3 Specular){
+    half3 diffuseColor = 0; 
+    half3 specularColor = 0;
+ 
+    #ifndef SHADERGRAPH_PREVIEW
+        Smoothness = exp2(10 * Smoothness + 1);
+        WorldView = SafeNormalize(WorldView);
+
+        //Additional Lights cannot be directional lights
+        //Additional lights are the set of non-culled spot and point lights (culling done by distance)
+        //if you want to see culling in action set the diffuse color based on additional light count 
+        int lightCount = GetAdditionalLightsCount();
+        for(int i = 0; i < lightCount; i++){
+            Light light = GetAdditionalLight(i,WorldPosition);
+            half3 attenuatedLightColor = light.color * (light.distanceAttenuation * light.shadowAttenuation);
+            diffuseColor += LightingDiffuseToon(attenuatedLightColor, light.direction, WorldNormal, ShadowSoftness);
+            specularColor += LightingSpecToon(attenuatedLightColor, light.direction, WorldNormal, WorldView, half4(SpecularColor,1), Smoothness, SpecularSoftness);
+        }
+
+
+    #endif 
+    Diffuse = diffuseColor;
+    Specular = specularColor;
+}
 
 void DirectSpecular_half(half3 Specular, half Smoothness, half3 LightDirection, half3 LightColor, half3 WorldNormal, half3 WorldView, out half3 SpecularColor){
     #if SHADERGRAPH_PREVIEW
@@ -98,29 +148,26 @@ void DirectSpecular_half(half3 Specular, half Smoothness, half3 LightDirection, 
 }
 
 
-half3 LightingSpecToon(half3 lightColor, half3 lightDir, half3 normal, half3 viewDir, half4 specularGloss, half shininess)
-{
-    half3 halfVec = SafeNormalize(lightDir + viewDir);
-    half NdotH = saturate(dot(normal, halfVec)); //specular intensity
 
-
-	//specular gloss rgb is how specular each channel is all multiplied by a specular component stores in the alpha channel
-    half modifier = pow(NdotH, shininess) * specularGloss.a; //a modifier that sharpens specular highlights and accounts for gloss (gloss seems to basically just be "specularness" of the material)
-
-    half3 specularReflection = specularGloss.rgb * modifier; 
-
-    specularReflection = smoothstep(0.005,0.01,specularReflection);
-
-    return lightColor * specularReflection; 
-}
-
-void ToonSpecular_half(half3 Specular, half Smoothness, half3 LightDirection, half3 LightColor, half3 WorldNormal, half3 WorldView, out half3 SpecularColor){
+void ToonSpecular_half(half3 Specular, half Smoothness, half3 LightDirection, half3 LightColor, half3 WorldNormal, half3 WorldView, half SpecularSoftness , out half3 SpecularColor){
     #if SHADERGRAPH_PREVIEW
         SpecularColor = 0;  
     #else 
         Smoothness = exp2(10 * Smoothness + 1); //exp2(x) is equivilant to 2^x so... 2^(10 * Smoothness + 1)
         WorldNormal = normalize(WorldNormal); 
         WorldView = SafeNormalize(WorldView); //SafeNormalize is a normalize function that takes into account 0 length vectors
-        SpecularColor = LightingSpecToon(LightColor,LightDirection, WorldNormal,WorldView, half4(Specular,1), Smoothness);
+        SpecularColor = LightingSpecToon(LightColor,LightDirection, WorldNormal,WorldView, half4(Specular,1), Smoothness,SpecularSoftness);
     #endif
+}
+
+
+
+
+
+/******************************************* Physically Based Lighting and Gloabl Illumination *************************************/
+
+
+
+void DirectPBR_half(){
+
 }
